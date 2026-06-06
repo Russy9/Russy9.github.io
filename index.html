@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+<head>
+    
+<meta charset="UTF-8">
+
+<meta name="viewport"
+ content="width=device-width, initial-scale=1.0">
+ 
+<title>Hospital Locator - Home</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+
+
+</head>
+
+<body>
+    
+<nav>
+    
+<div class="menu-container">
+    
+    <div class="menu-btn"
+     onclick="toggleMenu()">☰</div>
+     
+
+    <div class="menu" id="menu">
+        
+        <a href="ai.html">🤖 AI Assistant</a>
+        
+        <a href="about.html">ℹ️About Us</a>
+        
+        <a href="login.html">🔑 Login</a>
+        
+        <a href="contact us.html">📞Contact Us</a>
+        
+    </div>
+    
+</nav>
+
+<header>
+    
+    <h1>HOME</h1>
+    
+    <h2>Hospital Locator System</h2>
+    
+</header>
+
+<div class="hero">
+
+    <h2>Find Hospitals Near You</h2>
+
+    <p>
+        
+        Search best hospitals, clinics, healthcare centres and doctors
+        
+    </p>
+
+    <div class="search-box">
+        
+        <input type="text"
+        placeholder="Search hospital and best doctors...">
+        
+        <button>Search</button>
+        
+    </div>
+    
+    
+    <div class="hero">
+        
+    <h3>Recommended best hostitals with best doctors</h3>
+    
+
+    <div class="scroll-container">
+
+        <div class="card">
+            
+            <img src="img/parirenyatwa.jpg" alt="Parirenyatwa Hospital">
+            
+            <h3>Parirenyatwa Hospital</h3>
+            <button onclick="openMap('Parirenyatwa Hospital Harare Zimbabwe')">
+                
+                Show Directions
+                
+            </button>
+            
+        </div>
+
+        <div class="card">
+            
+            <img src="img/westend.jpg" alt="West End Hospital">
+            
+            <h3>West End Hospital</h3>
+            
+            <button onclick="openMap('West End Hospital Harare Zimbabwe')">
+                
+                Show Directions
+                
+            </button>
+            
+        </div>
+
+        <div class="card">
+            
+            <img src="img/avenues.jpg"
+             alt="Avenues Clinic">
+            <h3>Avenues Clinic</h3>
+            
+            <button onclick="openMap('Avenues Clinic Harare Zimbabwe')">
+                
+                Show Directions
+                
+            </button>
+            
+        </div>
+
+        <div class="card">
+            
+            <img src="img/sallymugabe.jpg" alt="Sally Mugabe Hospital">
+            
+            <h3>Sally Mugabe Hospital</h3>
+            
+            <button onclick="openMap('Sally Mugabe Hospital Harare Zimbabwe')">
+                
+                Show Directions
+                
+            </button>
+            
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+    
+
+    <h2>Enable Location</h2>
+
+    <p>Allow location access to find nearby hospitals.</p>
+
+    <button onclick="getLocation()">
+        Enable Location
+    </button>
+    
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+
+// Open Google Maps Directions
+function openMap(hospital) {
+    const url =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(hospital);
+
+    window.open(url, "_blank");
+}
+
+// Enable Location
+function getLocation() {
+
+    const result = document.getElementById("result");
+
+    if (!navigator.geolocation) {
+        result.innerHTML =
+        "❌ Geolocation is not supported by this browser.";
+        return;
+    }
+
+    result.innerHTML = "📍 Getting your location...";
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            result.innerHTML =
+            "✅ Location Found<br><br>" +
+            "Latitude: " + latitude +
+            "<br>Longitude: " + longitude +
+            '<br><br><a href="https://www.google.com/maps?q=' +
+            latitude + ',' + longitude +
+            '" target="_blank">📍 View My Location on Google Maps</a>';
+
+        },
+
+        function(error) {
+
+            switch(error.code) {
+
+                case error.PERMISSION_DENIED:
+                    result.innerHTML =
+                    "❌ Location permission denied.";
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+                    result.innerHTML =
+                    "❌ Location unavailable.";
+                    break;
+
+                case error.TIMEOUT:
+                    result.innerHTML =
+                    "❌ Request timed out.";
+                    break;
+
+                default:
+                    result.innerHTML =
+                    "❌ Unknown error occurred.";
+            }
+        }
+    );
+}
+
+// Toggle Menu
+function toggleMenu() {
+
+    let menu = document.getElementById("menu");
+
+    if(menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+
+// Close menu when clicking outside
+window.onclick = function(event) {
+
+    if(!event.target.matches('.menu-btn')) {
+
+        let menu = document.getElementById("menu");
+
+        if(menu.style.display === "block") {
+            menu.style.display = "none";
+        }
+    }
+}
+
+</script>
+  <div class="contact-info"
+
+<p><strong>Designed By Russel Murombedzi AKA MEE</strong></p>
+
+</div>
+</body>
+</html>
