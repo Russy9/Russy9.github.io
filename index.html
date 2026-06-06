@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>No-API AI Chatbot</title>
+</head>
+<body>
+<link rel="stylesheet" href="style.css">
+<h2>Simple AI Chat 🤖 (No API)</h2>
+
+<input id="input" placeholder="Ask me anything..." />
+<button onclick="chat()">Send</button>
+
+<pre id="box"></pre>
+
+<script>
+function chat() {
+    let input = document.getElementById("input").value.toLowerCase();
+    let box = document.getElementById("box");
+
+    let reply = getResponse(input);
+
+    box.textContent += "You: " + input + "\n";
+    box.textContent += "AI: " + reply + "\n\n";
+
+    document.getElementById("input").value = "";
+}
+
+function getResponse(text) {
+
+    // greetings
+    if (text.includes("hello") || text.includes("hi")) {
+        return "Hello! 👋 How can I help you today?";
+    }
+
+    // math
+    if (text.includes("calculate") || text.includes("+") || text.includes("-")) {
+        try {
+            let math = text.replace("calculate", "");
+            return "Result: " + eval(math);
+        } catch {
+            return "I can't calculate that.";
+        }
+    }
+
+    // time
+    if (text.includes("time")) {
+        return "Current time is " + new Date().toLocaleTimeString();
+    }
+
+    // name
+    if (text.includes("your name")) {
+        return "I'm a simple AI chatbot made with JavaScript 🤖";
+    }
+
+    // joke
+    if (text.includes("joke")) {
+        let jokes = [
+            "Why did the computer crash? Because it had too many tabs open 😂",
+            "I told my phone I needed space... it installed a bigger screen 📱",
+            "Why do programmers hate nature? Too many bugs 🐛"
+        ];
+        return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    // default response
+    return "I'm still learning 🤖 — try asking something else!";
+}
+</script>
+
+</body>
+</html>
